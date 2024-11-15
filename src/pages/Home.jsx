@@ -3,6 +3,7 @@ import { data_down, data_left, data_right, data_up } from "../data/data";
 import Property from "../components/Property";
 import Corner from "../components/Corner";
 import Center from "../components/Center";
+import Player from "../components/Player";
 
 const useWindowSize = () => {
   const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
@@ -71,17 +72,9 @@ export default function Home() {
         >
           <div className="bg-red-500 text-sm md:text-xl col-start-4 col-span-9 row-span-9 flex flex-col justify-center items-center border-[1px] border-black">
             JAIL
-            <div className="flex flex-col justify-center items-center">
-              <div className="w-1 h-1 md:w-2 md:h-2 bg-red-800 rounded-full"></div>
-              <div className="w-2 h-2 md:w-3 md:h-3 bg-red-800 rounded-t-full"></div>
-            </div>
           </div>
 
           <div className="col-span-full row-span-3 flex justify-center items-center ">
-            <div className="flex flex-col justify-center items-center">
-              <div className="w-1 h-1 md:w-2 md:h-2 bg-red-800 rounded-full"></div>
-              <div className="w-2 h-2 md:w-3 md:h-3 bg-red-800 rounded-t-full"></div>
-            </div>
             JUST VISITING
           </div>
         </div>
@@ -92,7 +85,7 @@ export default function Home() {
           })}
         </div>
 
-        <Corner color={"bg-green-500"} name={"START"} />
+        <Corner color={"bg-green-500"} name={"START"} player1={<Player />} player2={<Player />} />
       </div>
 
       {/* ********************************************************* */}

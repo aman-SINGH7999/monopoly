@@ -8,7 +8,7 @@ export default function Dice3D({front_face, id, clicked, setClicked}) {
 
     useEffect(()=>{
         let angle = 0;
-        const rotation_times = 10;
+        const rotation_times = 5;
         if(clicked){
             function rotateDice() {
                 if(document.getElementById(id))
@@ -29,7 +29,7 @@ export default function Dice3D({front_face, id, clicked, setClicked}) {
                     setFace(front_face);
                     setClicked(false)
                 }
-            }, 250)
+            }, 100)
         }
         
     }, [front_face, clicked])
@@ -46,7 +46,7 @@ export default function Dice3D({front_face, id, clicked, setClicked}) {
                     <div className='cube_face cube_face--top'><DiceSides side={2} /></div>        
                     <div className='cube_face cube_face--bottom'><DiceSides side={3} /></div>        
                 </div>
-                <div className='shadow' id={`shadow-${id}`}></div>
+                <div className='shadow blur-md' id={`shadow-${id}`}></div>
             </div>
         </>
     )
