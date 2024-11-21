@@ -5,20 +5,18 @@ import { myContext } from '../context/Context';
 
 
 export default function DiceRoller({clickFunction}) {
-    const [face1, setFace1] = useState(1);
-    const [face2, setFace2] = useState(2);
-    const [clicked, setClicked] = useState(false);
-    const {turn, setTurn} =useContext(myContext)
+    const [dubbleClicked, setDubbleClicked] = useState(false)
+    const {turn, setTurn, diceClicked, setDiceClicked, faceValue, setFaceValue} =useContext(myContext)
 
 
     const handleClick = (event) => {
-        if(!clicked){
+        if(!diceClicked && !dubbleClicked){
+            setDubbleClicked(true);
+            setDiceClicked(true);
             const f1 = generateRandomFace();
             const f2 = generateRandomFace();
 
-            setFace1(f1);
-            setFace2(f2);
-            setClicked(true)
+            setFaceValue([f1,f2]);
 
             setTimeout(() => {
                 const audio = document.getElementById("audioplay")
@@ -27,6 +25,7 @@ export default function DiceRoller({clickFunction}) {
             
             setTimeout(()=>{
                 clickFunction(f1+f2)
+                setDubbleClicked(false)
             }, 1300)
         }
     }
@@ -39,8 +38,8 @@ export default function DiceRoller({clickFunction}) {
         <>
             <div className=' p-0 shadow-[0px_0px_30px_#00000028] bg-[#00000015] backdrop-blur-sm  flex gap-2 rounded-full cursor-pointer perspective' onClick={handleClick}>
                 <div className='h-[50px] mt-[50px] -ml-[22px] w-[150px] absolute roller-plateform roller-plateform-base'></div>
-                <Dice3D front_face={face1} id="dice1" clicked={clicked} setClicked={setClicked} />
-                <Dice3D front_face={face2} id="dice2" clicked={clicked} setClicked={setClicked} />
+                <Dice3D front_face={faceValue[0]} id="dice1" />
+                <Dice3D front_face={faceValue[1]} id="dice2" />
                 <audio controls className='hidden' id="audioplay">
                     <source src="/dice2.mp3" type="audio/ogg"/>
                 </audio>

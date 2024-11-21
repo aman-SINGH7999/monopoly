@@ -1,11 +1,13 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import Player from './Player';
 import { TbHandClick } from "react-icons/tb";
+import { myContext } from '../context/Context';
 /**
  * 
  * @returns need to filter this component
  */
 export default function PlayerMovement() {
+    const {turn, setTurn, diceClicked, setDiceClicked} =useContext(myContext)
     const max_len = 12;
     const [players, setPlayers] = useState([
         {

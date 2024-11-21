@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './ComponentCSS/diceStyle.css';
 import DiceSides from './DiceSides';
-export default function Dice3D({front_face, id, clicked, setClicked}) {
+import { myContext } from '../context/Context';
+export default function Dice3D({front_face, id}) {
     const face_class = ["null", "show-front", "show-top", "show-bottom", "show-right", "show-left", "show-back"]
     const [face, setFace] = useState(1)
+    const {turn, setTurn, diceClicked, setDiceClicked} =useContext(myContext)
     // console.log(front_face, id);
 
     useEffect(()=>{
         let angle = 0;
         const rotation_times = 5;
-        if(clicked){
+        if(diceClicked){
             function rotateDice() {
                 if(document.getElementById(id))
                 document.getElementById(id).style=`transform: translateZ(-20px) rotateY(${angle}deg) rotateX(${angle}deg);`;
@@ -27,12 +29,12 @@ export default function Dice3D({front_face, id, clicked, setClicked}) {
                     if(document.getElementById(id))
                     document.getElementById(id).style = "";
                     setFace(front_face);
-                    setClicked(false)
+                    // setDiceClicked(false)
                 }
             }, 100)
         }
         
-    }, [front_face, clicked])
+    }, [front_face, diceClicked])
 
 
     return (

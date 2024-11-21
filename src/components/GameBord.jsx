@@ -1,9 +1,11 @@
-import React, { useLayoutEffect, useState, useEffect, useCallback } from 'react'
+import React, { useLayoutEffect, useState, useEffect, useCallback, useContext } from 'react'
 import Property from './Property';
 import Corner from './Corner';
 import Center from './Center';
 import Player from './Player';
 import { data_down, data_left, data_right, data_up } from "../data/data";
+import { myContext } from '../context/Context';
+import { useSelector } from 'react-redux';
 // import { TbHandClick } from "react-icons/tb";
 
 const useWindowSize = () => {
@@ -28,11 +30,17 @@ const useWindowSize = () => {
 export default function GameBord() {
     const [width] = useWindowSize();
     const [style, setStyle] = useState({});
+    const [endTurn, setEndTurn] = useState(false);
+
+    const {turn, setTurn, diceClicked, setDiceClicked} = useContext(myContext)
     const max_len = 40;
     const path = [39,38,37,36,35,34,33,32,31,30,29,19,18,17,16,15,14,13,12,11,0,1,2,3,4,5,6,7,8,9,10,20,21,22,23,24,25,26,27,28];
-    const [players, setPlayers] = useState([
+    const playersList = useSelector((state)=>state.players);
+    const [players, setPlayers] = useState(playersList);
+    const customPlayers = [
         {
             id: 'player-1',
+            name : 'player-1',
             color: 'bg-red-600',
             parent: 39,
             ref: undefined,
@@ -40,6 +48,7 @@ export default function GameBord() {
         },
         {
             id: 'player-2',
+            name : 'player-2',
             color: 'bg-yellow-600',
             parent: 39,
             ref: undefined,
@@ -47,6 +56,7 @@ export default function GameBord() {
         },
         {
             id: 'player-3',
+            name : 'player-3',
             color: 'bg-blue-600',
             parent: 39,
             ref: undefined,
@@ -54,12 +64,18 @@ export default function GameBord() {
         },
         {
             id: 'player-4',
+            name: 'player-4',
             color: 'bg-green-600',
             parent: 39,
             ref: undefined,
             gap: 0
         }
-    ]);
+    ]
+
+    // console.log("player list   = ", playersList, playersList === customPlayers)
+    // console.log("customPlayers = ", customPlayers, playersList == customPlayers)
+
+    
 
   useLayoutEffect(() => {
     const newWidth = Math.min(width, window.innerHeight - 135);
@@ -76,11 +92,15 @@ const [playersObj, setPlayersObj] = useState([]);
             plyr.style.transition = 'left 0.3s ease-in-out, top 0.3s ease-in-out';
             const gap = (half-(index*8))*(-1);
             setPlayers(prevArray => {
-                const newArray = [...prevArray]; // Create a copy of the array
-                if(newArray[index]) {
-                    newArray[index].ref = plyr;
-                    newArray[index].gap = gap;
-                } // Modify the 'b' property of the nth object
+                const newArray = prevArray.map((elem, idx)=>{
+                    console.log(elem)
+                    if(idx === index) {
+                        return Object.assign({}, elem, {ref:plyr, gap:gap})
+                    } else {
+                        return elem;
+                    }
+                })
+                console.log(newArray)
                 return newArray;
               });
         })
@@ -107,6 +127,11 @@ const [playersObj, setPlayersObj] = useState([]);
         })
     }, [players])
 
+    /**
+        for single move
+        not being used in this app
+     */
+    
     const movePlayer = (event) =>{
         // get random player
         const playerIndex = Math.floor(Math.random()*4);
@@ -123,14 +148,15 @@ const [playersObj, setPlayersObj] = useState([]);
     }
     const runPlayer = (number) =>{
         // get random player
-        console.log("number : ", number)
-        const playerIndex = Math.floor(Math.random()*4);
+        // console.log("number : ", number)
+        const playerIndex = turn; //Math.floor(Math.random()*4);
         const plyr = players[playerIndex];
         // console.log(plyr, playerIndex)
         const curentParent = plyr.parent;
         const target = generateTarget(curentParent, number);
-        console.log("playerIndex", playerIndex, "target", target, "origin", curentParent);
+        // console.log("playerIndex", playerIndex, "target", target, "origin", curentParent);
         const path = generatePath(curentParent, target);
+        // console.log("path : ", path, target)
         let index = 1;
         const runAnimation = setInterval(()=>{
             const newParent = path[index];
@@ -142,16 +168,25 @@ const [playersObj, setPlayersObj] = useState([]);
                 return newArray;
               });
             index++;
-            if (index >= path.length)
+
+            if (index >= path.length){
+                // console.log("stop!")
+                setTimeout(()=>{
+                    setDiceClicked(false)
+                    setEndTurn(true)
+                    // console.log("Animation stop!")
+                },500)
                 clearInterval(runAnimation);
+            }
         }, 200)
     }
     function generateTarget(origin, length) {
         const index = path.indexOf(origin);
         let newIndex = index+length;
         if(newIndex>39)
-            newIndex = 0;
+            newIndex = newIndex-40;
         const target = path[newIndex];
+        // console.log("target : ", target)
         return target;
     }
     function getNextParent(parent) {
@@ -165,8 +200,9 @@ const [playersObj, setPlayersObj] = useState([]);
         // console.log(parent, target);
         const nPath = [];
         let index = 0;
-        while(parent != target && index<max_len) {
-            // console.log(nPath.length)
+        while(parent !== target && index<max_len) {
+            // console.log("index : ", index)
+            // console.log("parent : ", parent)
             nPath.push(parent);
             parent = getNextParent(parent)
             index++;
@@ -201,7 +237,7 @@ const [playersObj, setPlayersObj] = useState([]);
             </div>
 
             <div className="col-span-6 row-span-6 p-1">
-            <Center clickFunction={runPlayer} />
+            <Center clickFunction={runPlayer} endTurn={endTurn} setEndTurn={setEndTurn} />
             </div>
 
             <div className="row-span-6 grid grid-rows-9">
