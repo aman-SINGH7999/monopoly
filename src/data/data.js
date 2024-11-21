@@ -22,6 +22,7 @@ const data_up = [
         class2 : class2_up_down,
         type : "lime",
         direction: "up",
+        index: 1,
     },
     {
         name : "CHEST",
@@ -30,6 +31,7 @@ const data_up = [
         color : "bg-white",
         type : "chest",
         direction: "up",
+        index: 2,
     },
     {
         name : "CHANDIGARH",
@@ -43,6 +45,7 @@ const data_up = [
         class2 : class2_up_down,
         type : "lime",
         direction: "up",
+        index: 3,
     },
     {
         name : "JAIPUR",
@@ -56,6 +59,7 @@ const data_up = [
         class2 : class2_up_down,
         type : "lime",
         direction: "up",
+        index: 4,
     },
     {
         name : "STATION",
@@ -68,6 +72,7 @@ const data_up = [
         logo : "",
         type : "station",
         direction: "up",
+        index: 5,
     },
     {
         name : "PUNE",
@@ -81,6 +86,7 @@ const data_up = [
         class2 : class2_up_down,
         type : "yellow",
         direction: "up",
+        index: 6,
     },
     {
         name : "HYDERABAD",
@@ -94,6 +100,7 @@ const data_up = [
         class2 : class2_up_down,
         type : "yellow",
         direction: "up",
+        index: 7,
     },
     {
         name : "WATER",
@@ -106,6 +113,7 @@ const data_up = [
         logo : "",
         type : "utilities",
         direction: "up",
+        index: 8,
     },
     {
         name : "AHMEDABAD",
@@ -119,6 +127,7 @@ const data_up = [
         class2 : class2_up_down,
         type : "yellow",
         direction: "up",
+        index: 9,
     },
 ]
 
@@ -139,6 +148,7 @@ const data_left = [
         logo : "",
         type : "orange",
         direction: "left",
+        index: 11,
     },
     {
         name : "NAGPUR",
@@ -152,6 +162,7 @@ const data_left = [
         class2 : class2_left_right,
         type : "orange",
         direction: "left",
+        index: 12,
     },
     
     {
@@ -162,6 +173,7 @@ const data_left = [
         color : "bg-white",
         type : "chest",
         direction: "left",
+        index: 13,
     },
     
     {
@@ -177,6 +189,7 @@ const data_left = [
         logo : "",
         type : "orange",
         direction: "left",
+        index: 14,
     },
     
     {
@@ -190,6 +203,7 @@ const data_left = [
         logo : "",
         type : "station",
         direction: "left",
+        index: 15,
     },
     
     {
@@ -204,6 +218,7 @@ const data_left = [
         class2 : class2_left_right,
         type : "pink",
         direction: "left",
+        index: 16,
     },
     
     {
@@ -218,6 +233,7 @@ const data_left = [
         class2 : class2_left_right,
         type : "pink",
         direction: "left",
+        index: 17,
     },
     
     {
@@ -230,6 +246,7 @@ const data_left = [
         logo : "",
         type : "utilities",
         direction: "left",
+        index: 18,
     },
     
     {
@@ -244,6 +261,7 @@ const data_left = [
         class2 : class2_left_right,
         type : "pink",
         direction: "left",
+        index: 19,
     },
 ]
     
@@ -262,6 +280,7 @@ const data_right = [
         class2 : class2_left_right,
         type : "green",
         direction: "right",
+        index: 20,
     },
     {
         name : "CHENNAI",
@@ -275,6 +294,7 @@ const data_right = [
         class2 : class2_left_right,
         type : "green",
         direction: "right",
+        index: 21,
     },
     {
         name : "CHEST",
@@ -284,6 +304,7 @@ const data_right = [
         color : "bg-white",
         type : "chest",
         direction: "right",
+        index: 22,
     },
     {
         name : "BENGALURU",
@@ -297,6 +318,7 @@ const data_right = [
         class2 : class2_left_right,
         type : "green",
         direction: "right",
+        index: 23,
     },
     {
         name : "STATION",
@@ -309,6 +331,7 @@ const data_right = [
         logo : "",
         type : "station",
         direction: "right",
+        index: 24,
     },
     {
         name : "CHANCE",
@@ -317,6 +340,7 @@ const data_right = [
         color : "bg-white",
         type : "chance",
         direction: "right",
+        index: 25,
     },
     {
         name : "DELHI",
@@ -330,6 +354,7 @@ const data_right = [
         class2 : class2_left_right,
         type : "violet",
         direction: "right",
+        index: 26,
     },
     {
         name : "SUPER TEX",
@@ -339,6 +364,7 @@ const data_right = [
         color : "bg-white",
         type : "tax",
         direction: "right",
+        index: 27,
     },
     {
         name : "MUMBAI",
@@ -352,6 +378,7 @@ const data_right = [
         class2 : class2_left_right,
         type : "violet",
         direction: "right",
+        index: 28,
     },
 ]
 
@@ -371,6 +398,7 @@ const data_down = [
         class2 : class2_up_down,
         type : "blue",
         direction: "down",
+        index: 30,
     },
     {
         name : "AGARA",
@@ -385,6 +413,7 @@ const data_down = [
         logo : "",
         type : "blue",
         direction: "down",
+        index: 31,
     },
     {
         name : "CHANCE",
@@ -393,6 +422,7 @@ const data_down = [
         color : "bg-white",
         type : "chance",
         direction: "down",
+        index: 32,
     },
     {
         name : "PANAJI",
@@ -406,6 +436,7 @@ const data_down = [
         class2 : class2_up_down,
         type : "blue",
         direction: "down",
+        index: 33,
     },
     {
         name : "STATION",
@@ -419,6 +450,7 @@ const data_down = [
         logo : "",
         type : "station",
         direction: "down",
+        index: 34,
     },
     {
         name : "INCOME TAX",
@@ -428,6 +460,7 @@ const data_down = [
         color : "bg-white",
         type : "tax",
         direction: "down",
+        index: 35,
     },
     {
         name : "BHUBANESWAR",
@@ -441,6 +474,7 @@ const data_down = [
         class2 : class2_up_down,
         type : "red",
         direction: "down",
+        index: 36,
     },
     {
         name : "CHEST",
@@ -449,6 +483,7 @@ const data_down = [
         color : "bg-white",
         type : "chest",
         direction: "down",
+        index: 37,
     },
     {
         name : "GUWAHATI",
@@ -462,6 +497,7 @@ const data_down = [
         class2 : class2_up_down,
         type : "red",
         direction: "down",
+        index: 38,
     },
 ]
 

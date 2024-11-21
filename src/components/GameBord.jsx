@@ -24,9 +24,6 @@ const useWindowSize = () => {
   };
 
 
-
-
-
 export default function GameBord() {
     const [width] = useWindowSize();
     const [style, setStyle] = useState({});
@@ -37,45 +34,43 @@ export default function GameBord() {
     const path = [39,38,37,36,35,34,33,32,31,30,29,19,18,17,16,15,14,13,12,11,0,1,2,3,4,5,6,7,8,9,10,20,21,22,23,24,25,26,27,28];
     const playersList = useSelector((state)=>state.players);
     const [players, setPlayers] = useState(playersList);
-    const customPlayers = [
-        {
-            id: 'player-1',
-            name : 'player-1',
-            color: 'bg-red-600',
-            parent: 39,
-            ref: undefined,
-            gap: 0
-        },
-        {
-            id: 'player-2',
-            name : 'player-2',
-            color: 'bg-yellow-600',
-            parent: 39,
-            ref: undefined,
-            gap: 0
-        },
-        {
-            id: 'player-3',
-            name : 'player-3',
-            color: 'bg-blue-600',
-            parent: 39,
-            ref: undefined,
-            gap: 0
-        },
-        {
-            id: 'player-4',
-            name: 'player-4',
-            color: 'bg-green-600',
-            parent: 39,
-            ref: undefined,
-            gap: 0
-        }
-    ]
+    // const customPlayers = [
+    //     {
+    //         id: 'player-1',
+    //         name : 'player-1',
+    //         color: 'bg-red-600',
+    //         parent: 39,
+    //         ref: undefined,
+    //         gap: 0
+    //     },
+    //     {
+    //         id: 'player-2',
+    //         name : 'player-2',
+    //         color: 'bg-yellow-600',
+    //         parent: 39,
+    //         ref: undefined,
+    //         gap: 0
+    //     },
+    //     {
+    //         id: 'player-3',
+    //         name : 'player-3',
+    //         color: 'bg-blue-600',
+    //         parent: 39,
+    //         ref: undefined,
+    //         gap: 0
+    //     },
+    //     {
+    //         id: 'player-4',
+    //         name: 'player-4',
+    //         color: 'bg-green-600',
+    //         parent: 39,
+    //         ref: undefined,
+    //         gap: 0
+    //     }
+    // ]
 
     // console.log("player list   = ", playersList, playersList === customPlayers)
     // console.log("customPlayers = ", customPlayers, playersList == customPlayers)
-
-    
 
   useLayoutEffect(() => {
     const newWidth = Math.min(width, window.innerHeight - 135);
@@ -93,14 +88,14 @@ const [playersObj, setPlayersObj] = useState([]);
             const gap = (half-(index*8))*(-1);
             setPlayers(prevArray => {
                 const newArray = prevArray.map((elem, idx)=>{
-                    console.log(elem)
+                    console.log("elem",elem)
                     if(idx === index) {
                         return Object.assign({}, elem, {ref:plyr, gap:gap})
                     } else {
                         return elem;
                     }
                 })
-                console.log(newArray)
+                console.log("newArray",newArray)
                 return newArray;
               });
         })
@@ -212,6 +207,40 @@ const [playersObj, setPlayersObj] = useState([]);
         return nPath;
     }
 
+    // find Properties
+    const findProperties = (i)=>{
+        let data = data_down?.find(({index})=> index === i);
+        if(data) return data;
+        data = data_left?.find(({index})=> index === i);
+        if(data) return data;
+        data = data_right?.find(({index})=> index === i);
+        if(data) return data;
+        data = data_up?.find(({index})=> index === i);
+        if(data) return data;
+        
+        const myArray = [
+            {
+                name : "START",
+                index : 39,
+            },
+            {
+                name : "JAIL",
+                index : 29,
+            },
+            {
+                name : "JAIL",
+                index : 10,
+            },
+            {
+                name : "PARKING",
+                index : 0,
+            }
+        ]
+        data = myArray?.find(({index})=> index === i);
+        if(data) return data;
+        else return {name : "START",index : 39,}
+    }
+
 
   return (
     <div className=''>
@@ -220,15 +249,16 @@ const [playersObj, setPlayersObj] = useState([]);
             style={style}
             id='board-box'
         >
-            <Corner color={"bg-yellow-500"} name={"PARKING"} />
+            <Corner color={"bg-yellow-500"} index={0} name={`PARKING`} />
 
             <div className="col-span-6 grid grid-cols-9">
             {data_up?.map((e, i) => {
+                // console.log(i)
                 return <Property key={i} e={e} angle={"rotate-90"} />;
             })}
             </div>
 
-            <Corner color={"bg-red-500"} name={"JAIL"} />
+            <Corner color={"bg-red-500"} index={10} name={`JAIL`} />
 
             <div className="row-span-6 grid grid-rows-9">
             {data_left?.map((e, i) => {
@@ -246,15 +276,7 @@ const [playersObj, setPlayersObj] = useState([]);
             })}
             </div>
 
-            <div className={`bg-white grid grid-cols-12 grid-rows-12 rounded-md border-black border-[1px] box-sell`}>
-            <div className="bg-red-500 text-sm md:text-xl col-start-4 col-span-9 row-span-9 flex flex-col justify-center items-center border-[1px] border-black">
-                JAIL
-            </div>
-
-            <div className="col-span-full row-span-3 flex justify-center items-center ">
-                JUST VISITING
-            </div>
-            </div>
+            <Corner color={"bg-red-500"} name={"JAIL"} index={29} subTitle={"JUST VISITING"} />
 
             <div className="col-span-6 grid grid-cols-9">
             {data_down?.map((e, i) => {
@@ -262,7 +284,7 @@ const [playersObj, setPlayersObj] = useState([]);
             })}
             </div>
 
-            <Corner color={"bg-green-500"} name={"START"} />
+            <Corner color={"bg-green-500"} name={`START`} index={39} />
         </div>
 
         {

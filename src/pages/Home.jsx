@@ -17,7 +17,7 @@ export default function Home() {
         color: 'bg-red-600',
         parent: 39,
         ref: undefined,
-        gap: 0
+        gap: 0,
     },
   ])
 
@@ -28,13 +28,16 @@ export default function Home() {
       color : colors[players.length],
       parent : parent,
       ref: undefined,
-      gap: 0
+      gap: 0,
     }
     setPlayers([...players, newPlayer])
   }
 
   const handleStart = ()=>{
-    dispatch(addPlayers(players));
+    const newPlayers = players.map((player)=>{
+      return {...player, amount:price}
+    })
+    dispatch(addPlayers(newPlayers));
     navigate("/monopoly")
   }
 
@@ -49,8 +52,8 @@ export default function Home() {
                       players.length < 4 ? <button className="bg-blue-500 rounded-full py-2 px-4" onClick={handleAddPlayer}>add players</button> : null
                     }
                     {
-                      players?.map((p)=>{
-                        return <div>
+                      players?.map((p, i)=>{
+                        return <div key={i}>
                           {p.name}
                         </div>
                       })

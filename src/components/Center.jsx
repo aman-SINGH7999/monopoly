@@ -5,15 +5,17 @@ import DiceRoller from './DiceRoller'
 import PlayerMovement from './PlayerMovement'
 import PlayerMovementNew from './PlayerMovementNew'
 import { myContext } from '../context/Context'
+import { useSelector } from 'react-redux'
 
 export default function Center({clickFunction, endTurn, setEndTurn}) {
-  const {turn, setTurn, diceClicked, setDiceClicked, faceValue, setFaceValue} = useContext(myContext)
+  const {turn, setTurn, diceClicked, setDiceClicked, faceValue, setFaceValue} = useContext(myContext);
+  const players = useSelector((state)=>state.players);
 
   const handleTurn = ()=>{
     // console.log("Change turn")
     setTurn((prev)=>{
         prev += 1;
-        if(prev >= 4) prev = 0;
+        if(prev >= players.length) prev = 0;
         return prev;
     });
     setEndTurn(false);
