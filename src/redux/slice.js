@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     players : [],
+    properties : [],
 }
 
 export const monopolySlice = createSlice({
@@ -11,10 +12,12 @@ export const monopolySlice = createSlice({
         addPlayers : (state, actions)=>{
             state.players = actions.payload;
         },
-
+        addProperties : (state, actions)=>{
+            state.properties = actions.payload;
+        }
     }
 })
 
-export const { addPlayers } = monopolySlice.actions
+export const { addPlayers, addProperties } = monopolySlice.actions
 
 export default monopolySlice.reducer

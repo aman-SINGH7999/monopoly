@@ -6,6 +6,7 @@ import Player from './Player';
 import { data_down, data_left, data_right, data_up } from "../data/data";
 import { myContext } from '../context/Context';
 import { useSelector } from 'react-redux';
+import Popup from './Popup';
 // import { TbHandClick } from "react-icons/tb";
 
 const useWindowSize = () => {
@@ -28,12 +29,14 @@ export default function GameBord() {
     const [width] = useWindowSize();
     const [style, setStyle] = useState({});
     const [endTurn, setEndTurn] = useState(false);
+    const [endTarget, setEndTarget] = useState(39);
 
     const {turn, setTurn, diceClicked, setDiceClicked} = useContext(myContext)
     const max_len = 40;
     const path = [39,38,37,36,35,34,33,32,31,30,29,19,18,17,16,15,14,13,12,11,0,1,2,3,4,5,6,7,8,9,10,20,21,22,23,24,25,26,27,28];
     const playersList = useSelector((state)=>state.players);
     const [players, setPlayers] = useState(playersList);
+
     // const customPlayers = [
     //     {
     //         id: 'player-1',
@@ -151,7 +154,7 @@ const [playersObj, setPlayersObj] = useState([]);
         const target = generateTarget(curentParent, number);
         // console.log("playerIndex", playerIndex, "target", target, "origin", curentParent);
         const path = generatePath(curentParent, target);
-        // console.log("path : ", path, target)
+        console.log("path : ", path, target)
         let index = 1;
         const runAnimation = setInterval(()=>{
             const newParent = path[index];
@@ -169,6 +172,7 @@ const [playersObj, setPlayersObj] = useState([]);
                 setTimeout(()=>{
                     setDiceClicked(false)
                     setEndTurn(true)
+                    setEndTarget(target)
                     // console.log("Animation stop!")
                 },500)
                 clearInterval(runAnimation);
@@ -243,7 +247,7 @@ const [playersObj, setPlayersObj] = useState([]);
 
 
   return (
-    <div className=''>
+    <div className='relative'>
         <div
             className={`grid grid-cols-8 grid-rows-8 aspect-square overflow-hidden`}
             style={style}
@@ -253,7 +257,6 @@ const [playersObj, setPlayersObj] = useState([]);
 
             <div className="col-span-6 grid grid-cols-9">
             {data_up?.map((e, i) => {
-                // console.log(i)
                 return <Property key={i} e={e} angle={"rotate-90"} />;
             })}
             </div>
@@ -295,6 +298,7 @@ const [playersObj, setPlayersObj] = useState([]);
             })
         }
         {/* <div className='absolute h-[50px] w-[50px] border-2 top-[40%] left-[40%] backdrop-blur-sm rounded-full flex justify-center items-center text-2xl text-white font-semibold cursor-pointer active:border-blue-700 active:text-blue-700' onClick={runPlayer}><TbHandClick /></div> */}
+        <Popup playerIndex={endTarget} />
     </div>
   )
 }

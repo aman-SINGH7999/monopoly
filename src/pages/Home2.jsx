@@ -1,6 +1,6 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import GameBord from "../components/GameBord";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { myContext } from "../context/Context";
 
 // import { counter } from "../redux/slice";
@@ -10,7 +10,8 @@ import { myContext } from "../context/Context";
 export default function Home2() {
   const {players} = useSelector((state) => state)
   const { turn } = useContext(myContext)
-  const dispatch = useDispatch()
+ 
+  
 
   return (
     <div className="lg:flex text-[6px] md:text-[8px] bg-gray-100 w-full h-screen board-container">

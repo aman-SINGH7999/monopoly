@@ -1,7 +1,9 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
 import { addPlayers } from "../redux/slice";
+import { addProperties } from "../redux/slice";
 import { useNavigate } from 'react-router-dom'
+ import { numberDetails } from "../data/numberDetails";
 
 export default function Home() {
   const colors = ['bg-red-600', 'bg-yellow-600', 'bg-blue-600', 'bg-green-600'];
@@ -20,6 +22,9 @@ export default function Home() {
         gap: 0,
     },
   ])
+  useEffect(()=>{
+    dispatch(addProperties(numberDetails))
+  }, [])
 
   const handleAddPlayer = ()=>{
     const newPlayer = {
